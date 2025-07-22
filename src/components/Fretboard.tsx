@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 import type { FretboardData, FretboardNote } from '@/types/FretboardNote';
 import { generateFretboardData } from '@/utils/fretboardData';
 import { cagedPositions } from '@/utils/cagedPositions';
-import { Note } from '@/components/Note';
+import { Note as NoteCmp } from '@/components/Note';
+import type { Note } from "@/utils/scales";
 // Definición de las posiciones, etiquetas y colores según la imagen
 
 const NUM_FRETS = 17;
 
 type FretboardProps = {
+  selectedScale: Note[];
   showNotes: boolean;
   viewOnlyFunction: boolean;
 }
 
-export const Fretboard: React.FC<FretboardProps> = ({ showNotes: showNoteName, viewOnlyFunction}) => {
+export const Fretboard: React.FC<FretboardProps> = ({ showNotes: showNoteName, viewOnlyFunction, selectedScale}) => {
   const [fretboardData] = useState<FretboardData>(() => generateFretboardData(NUM_FRETS));
 
+  console.log(selectedScale);
   return (
     <div className="flex justify-center items-center p-5 w-full">
       <div className="bg-guitar-brown border-3 border-guitar-dark rounded-lg p-5 shadow-2xl w-full max-w-full overflow-x-auto">
@@ -39,7 +42,7 @@ export const Fretboard: React.FC<FretboardProps> = ({ showNotes: showNoteName, v
             <div className="flex flex-1 gap-0.5 w-full">
               {guitarString.notes.map((note: FretboardNote) => {
                 const pos = cagedPositions.find((p: any) => p.string === note.string && p.fret === note.fret);
-                return <Note key={note.fret} pos={pos} note={note} showNoteName={showNoteName} viewOnlyFunction={viewOnlyFunction} />;
+                return <NoteCmp key={note.fret} pos={pos} note={note} showNoteName={showNoteName} viewOnlyFunction={viewOnlyFunction} />;
               })}
             </div>
           </div>

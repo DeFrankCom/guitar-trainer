@@ -1,7 +1,7 @@
 // Musical scale generator in TypeScript
 
-type Note = string;
-type ScaleType = 'major' | 'minor' | 'majorPentatonic' | 'minorPentatonic';
+export type Note = string;
+export type ScaleType = 'major' | 'minor' | 'majorPentatonic' | 'minorPentatonic';
 
 // Chromatic scale with all 12 notes
 const CHROMATIC_SCALE: Note[] = [
