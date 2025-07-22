@@ -6,12 +6,7 @@ export type ScaleType =
   | 'minor'
   | 'majorPentatonic'
   | 'minorPentatonic';
-export const allScales = [
-  'major',
-  'minor',
-  'majorPentatonic',
-  'minorPentatonic',
-];
+export const allScales = ['major'];
 export type ScaleNote = {
   note: string;
   interval: string;
