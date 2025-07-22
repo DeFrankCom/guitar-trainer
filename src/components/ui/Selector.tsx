@@ -34,7 +34,7 @@ export const Selector: React.FC<SelectProps> = ({
 
   return (
     <FormControl sx={{ m: 1, minWidth: 120 }}>
-      <InputLabel id={id} sx={{ color: 'white' }}>
+      <InputLabel id={id} sx={{ color: 'black' }}>
         {label}
       </InputLabel>
       <Select
@@ -43,7 +43,7 @@ export const Selector: React.FC<SelectProps> = ({
         value={value}
         label={label}
         onChange={handleChange}
-        sx={{ color: 'white' }}
+        sx={{ color: 'black' }}
       >
         {options.map(opt => (
           <MenuItem value={opt}>{opt}</MenuItem>

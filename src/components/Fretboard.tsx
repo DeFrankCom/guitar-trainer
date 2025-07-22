@@ -53,7 +53,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
           {Array.from({ length: NUM_FRETS }, (_, i) => (
             <div
               key={i}
-              className='bg-guitar-dark min-w-[60px] text-gray-100 py-2 px-1 text-center font-bold text-xs rounded mr-0.5 flex-1'
+              className='bg-guitar-dark min-w-[60px] text-black py-2 px-1 text-center font-bold text-xs rounded mr-0.5 flex-1'
             >
               {i + 1}
             </div>
