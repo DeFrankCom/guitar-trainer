@@ -17,7 +17,7 @@ function getNoteAtFret(openNote: string, fret: number): string {
 function generateStringNotes(stringNumber: number, openNote: string, totalFrets: number): FretboardNote[] {
   const stringNotes: FretboardNote[] = [];
   
-  for (let fret = 0; fret <= totalFrets; fret++) {
+  for (let fret = 1; fret <= totalFrets; fret++) {
     const note = getNoteAtFret(openNote, fret);
     stringNotes.push({
       note,
