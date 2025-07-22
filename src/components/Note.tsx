@@ -34,13 +34,13 @@ export const Note: React.FC<NoteProps> = ({
   return (
     <div
       key={note.fret}
-      className='flex items-center justify-center min-h-[40px] flex-1'
+      className='flex items-center justify-center min-h-[48px] flex-1'
     >
       {(noteBelongsToScale || viewOnlyFunction) && (
         <div
           key={note.fret}
           className={cx(
-            'flex items-center justify-center h-full min-w-[40px] rounded-full border-2 font-bold text-lg shadow-md',
+            'flex items-center justify-center h-[48px] w-[48px] rounded-full border-4 font-bold text-xl shadow-lg transition-all duration-200',
             colorMap[colorMapKey ?? 'none']
           )}
         >

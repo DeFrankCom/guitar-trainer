@@ -25,6 +25,16 @@ function generateStringNotes(
 ): FretboardNote[] {
   const stringNotes: FretboardNote[] = [];
 
+  // Agregar la nota al aire (fret 0)
+  stringNotes.push({
+    note: openNote,
+    string: stringNumber,
+    fret: 0,
+    isHighlighted: false,
+    isSelected: false,
+    interval: '',
+  });
+
   for (let fret = 1; fret <= totalFrets; fret++) {
     const note = getNoteAtFret(openNote, fret);
     stringNotes.push({

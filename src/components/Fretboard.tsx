@@ -40,6 +40,10 @@ export const Fretboard: React.FC<FretboardProps> = ({
     return selectedChord;
   };
 
+  const getNoteOfScale = (note: FretboardNote) => {
+    return selectedScale.find(scaleNote => scaleNote.note === note.note);
+  };
+
   return (
     <div className='flex justify-center items-center w-full'>
       <div className='bg-guitar-brown border-3 border-guitar-dark rounded-lg p-5 shadow-2xl w-full max-w-full overflow-x-auto'>
@@ -62,14 +66,25 @@ export const Fretboard: React.FC<FretboardProps> = ({
               key={guitarString.stringNumber}
               className='flex mb-0.5 items-center w-full'
             >
-              <div className='bg-guitar-dark text-gray-100 py-3 px-2 text-center font-bold text-sm rounded min-w-[50px] mr-2.5 shrink-0 flex items-center justify-center'>
-                {guitarString.openNote}
+              {/* Nota al aire como círculo */}
+              <div className='flex items-center justify-center min-w-[50px] mr-2.5 shrink-0'>
+                <NoteCmp
+                  key={0}
+                  color={getChordByNote(guitarString.notes[0])?.color ?? 'none'}
+                  note={{
+                    ...guitarString.notes[0],
+                    interval:
+                      getNoteOfScale(guitarString.notes[0])?.interval ??
+                      undefined,
+                  }}
+                  showNoteName={showNoteName}
+                  viewOnlyFunction={viewOnlyFunction}
+                  noteBelongsToScale={!!getNoteOfScale(guitarString.notes[0])}
+                />
               </div>
               <div className='flex flex-1 gap-0.5 w-full'>
-                {guitarString.notes.map((note: FretboardNote) => {
-                  const scaleNote = selectedScale.find(
-                    scaleNote => scaleNote.note === note.note
-                  );
+                {guitarString.notes.slice(1).map((note: FretboardNote) => {
+                  const scaleNote = getNoteOfScale(note);
                   const chord = getChordByNote(note);
                   return (
                     <NoteCmp
