@@ -1,7 +1,17 @@
 // Musical scale generator in TypeScript
 
 export type Note = string;
-export type ScaleType = 'major' | 'minor' | 'majorPentatonic' | 'minorPentatonic';
+export type ScaleType =
+  | 'major'
+  | 'minor'
+  | 'majorPentatonic'
+  | 'minorPentatonic';
+export const allScales = [
+  'major',
+  'minor',
+  'majorPentatonic',
+  'minorPentatonic',
+];
 export type ScaleNote = {
   note: string;
   interval: string;
@@ -37,6 +47,10 @@ const CHROMATIC_SCALE_FLATS: Note[] = [
   'A',
   'Bb',
   'B',
+];
+
+export const FULL_CHROMATIC_SCALE = [
+  ...new Set([...CHROMATIC_SCALE, ...CHROMATIC_SCALE_FLATS]),
 ];
 
 // Scale patterns in semitones

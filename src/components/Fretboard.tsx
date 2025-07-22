@@ -25,7 +25,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
 
   console.log(selectedScale);
   return (
-    <div className='flex justify-center items-center p-5 w-full'>
+    <div className='flex justify-center items-center w-full'>
       <div className='bg-guitar-brown border-3 border-guitar-dark rounded-lg p-5 shadow-2xl w-full max-w-full overflow-x-auto'>
         {/* Encabezado con números de trastes */}
         <div className='flex mb-2.5 w-full'>
