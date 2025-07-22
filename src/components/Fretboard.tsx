@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { generateFretboardData } from '../utils/fretboardData';
-import { cagedPositions } from '../utils/cagedPositions';
+import type { FretboardData, FretboardNote } from '@/types/FretboardNote';
+import { generateFretboardData } from '@/utils/fretboardData';
+import { cagedPositions } from '@/utils/cagedPositions';
+import { Note } from '@/components/Note';
 // Definición de las posiciones, etiquetas y colores según la imagen
-
 
 const colorMap: Record<string, string> = {
   red: 'bg-red-500 border-red-600 text-white',
@@ -15,7 +16,7 @@ const colorMap: Record<string, string> = {
 const NUM_FRETS = 17;
 
 export const Fretboard: React.FC = () => {
-  const [fretboardData] = useState(() => generateFretboardData(NUM_FRETS));
+  const [fretboardData] = useState<FretboardData>(() => generateFretboardData(NUM_FRETS));
 
   return (
     <div className="flex justify-center items-center p-5 w-full">
@@ -33,25 +34,15 @@ export const Fretboard: React.FC = () => {
           ))}
         </div>
         {/* Cuerdas y notas */}
-        {fretboardData.strings.map((guitarString) => (
+        {fretboardData.strings.map((guitarString: FretboardData['strings'][number]) => (
           <div key={guitarString.stringNumber} className="flex mb-0.5 items-center w-full">
             <div className="bg-guitar-dark text-gray-100 py-3 px-2 text-center font-bold text-sm rounded min-w-[50px] mr-2.5 flex-shrink-0 flex items-center justify-center">
               {/* Puedes mostrar la nota al aire si lo deseas */}
             </div>
             <div className="flex flex-1 gap-0.5 w-full">
-              {guitarString.notes.map((note) => {
-                const pos = cagedPositions.find(p => p.string === note.string && p.fret === note.fret);
-                if (!pos) {
-                  return <div key={note.fret} className="min-w-[40px] min-h-[40px] flex-1"></div>;
-                }
-                return (
-                  <div
-                    key={note.fret}
-                    className={`flex items-center justify-center min-w-[40px] min-h-[40px] rounded-full border-2 font-bold text-lg shadow-md ${colorMap[pos.color]}`}
-                  >
-                    {pos.label}
-                  </div>
-                );
+              {guitarString.notes.map((note: FretboardNote) => {
+                const pos = cagedPositions.find((p: any) => p.string === note.string && p.fret === note.fret);
+                return <Note key={note.fret} pos={pos} note={note} />;
               })}
             </div>
           </div>

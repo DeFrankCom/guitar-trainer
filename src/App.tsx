@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import { Fretboard } from './components/Fretboard'
-import type { FretboardNote } from './types/FretboardNote'
+import { Fretboard } from '@/components/Fretboard';
 
 function App() {
   return (
@@ -15,9 +13,7 @@ function App() {
       </header>
       
       <main className="flex flex-col items-center gap-5 p-5 w-full">
-        <Fretboard 
-          totalFrets={12}
-        />
+        <Fretboard />
       </main>
     </div>
   )

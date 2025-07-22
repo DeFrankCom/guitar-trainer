@@ -1,4 +1,5 @@
-export const cagedPositions = [
+import type { ShapeFretLocation } from '@/types/ShapeFretLocation';
+export const cagedPositions: ShapeFretLocation[] = [
     { string: 1, fret: 3, label: '3', color: 'red' },
     { string: 2, fret: 1, label: 'R', color: 'red' },
     { string: 2, fret: 5, label: '3', color: 'red' },
