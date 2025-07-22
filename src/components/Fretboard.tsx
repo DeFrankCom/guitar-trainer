@@ -60,7 +60,11 @@ export const Fretboard: React.FC<FretboardProps> = ({
         {fretboardData.strings.map(
           (guitarString: FretboardData['strings'][number]) => {
             const zeroNoteChordShape = getChordByNote(guitarString.notes[0])[0];
-            const zeroNoteScale = getNoteOfScale(guitarString.notes[0]);
+            const zeroNoteScale = {
+              ...guitarString.notes[0],
+              interval:
+                getNoteOfScale(guitarString.notes[0])?.interval ?? undefined,
+            };
             return (
               <div
                 key={guitarString.stringNumber}
@@ -71,10 +75,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
                   <NoteCmp
                     key={0}
                     shapes={[zeroNoteChordShape?.chordShape ?? 'neutral']}
-                    note={{
-                      ...guitarString.notes[0],
-                      interval: zeroNoteScale?.interval ?? undefined,
-                    }}
+                    note={zeroNoteScale}
                     showNoteName={showNoteName}
                     noteBelongsToScale={!!zeroNoteScale}
                     noteBelongsToChord={!!zeroNoteChordShape}
@@ -86,16 +87,16 @@ export const Fretboard: React.FC<FretboardProps> = ({
                   {guitarString.notes
                     .slice(1)
                     .map((note: FretboardNote, index: number) => {
-                      const scaleNote = getNoteOfScale(note);
+                      const scaleNote = {
+                        ...note,
+                        interval: getNoteOfScale(note)?.interval ?? undefined,
+                      };
                       const chordPos = getChordByNote(note);
                       return (
                         <NoteCmp
                           key={note.fret}
                           shapes={chordPos.map(c => c.chordShape) ?? 'none'}
-                          note={{
-                            ...note,
-                            interval: scaleNote?.interval ?? undefined,
-                          }}
+                          note={scaleNote}
                           showNoteName={showNoteName}
                           noteBelongsToScale={!!scaleNote}
                           noteBelongsToChord={chordPos.length >= 1}
