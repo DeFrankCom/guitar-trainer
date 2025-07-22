@@ -1,8 +1,8 @@
 // Musical scale generator in TypeScript
 
-type Note = string;
-type ScaleType = 'major' | 'minor' | 'majorPentatonic' | 'minorPentatonic';
-type ScaleNote = {
+export type Note = string;
+export type ScaleType = 'major' | 'minor' | 'majorPentatonic' | 'minorPentatonic';
+export type ScaleNote = {
   note: string;
   interval: string;
 };

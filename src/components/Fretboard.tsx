@@ -3,13 +3,13 @@ import type { FretboardData, FretboardNote } from '@/types/FretboardNote';
 import { generateFretboardData } from '@/utils/fretboardData';
 import { cagedPositions } from '@/utils/cagedPositions';
 import { Note as NoteCmp } from '@/components/Note';
-import type { Note } from '@/utils/scales';
+import type { ScaleNote } from '@/utils/scales';
 // Definición de las posiciones, etiquetas y colores según la imagen
 
 const NUM_FRETS = 17;
 
 type FretboardProps = {
-  selectedScale: Note[];
+  selectedScale: ScaleNote[];
   showNotes: boolean;
   viewOnlyFunction: boolean;
 };
@@ -54,13 +54,15 @@ export const Fretboard: React.FC<FretboardProps> = ({
                   const pos = cagedPositions.find(
                     (p: any) => p.string === note.string && p.fret === note.fret
                   );
+                  const scaleNote = selectedScale.find(scaleNote => scaleNote.note === note.note);
                   return (
                     <NoteCmp
                       key={note.fret}
                       pos={pos}
-                      note={note}
+                      note={{...note, interval: scaleNote?.interval ?? undefined }}
                       showNoteName={showNoteName}
                       viewOnlyFunction={viewOnlyFunction}
+                      noteBelongsToScale={!!scaleNote}
                     />
                   );
                 })}

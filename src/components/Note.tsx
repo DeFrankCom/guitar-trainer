@@ -15,6 +15,7 @@ type NoteProps = {
   note: FretboardNote;
   showNoteName: boolean;
   viewOnlyFunction: boolean;
+  noteBelongsToScale: boolean;
 };
 
 export const Note: React.FC<NoteProps> = ({
@@ -22,18 +23,19 @@ export const Note: React.FC<NoteProps> = ({
   note,
   showNoteName,
   viewOnlyFunction,
+  noteBelongsToScale,
 }) => {
   return (
     <div
       key={note.fret}
       className='flex items-center justify-center min-h-[40px] flex-1'
     >
-      {(pos || viewOnlyFunction) && (
+      {(noteBelongsToScale || viewOnlyFunction) && (
         <div
           key={note.fret}
           className={`flex items-center justify-center h-full min-w-[40px] rounded-full border-2 font-bold text-lg shadow-md ${colorMap[pos?.color ?? 'none']}`}
         >
-          {showNoteName || !viewOnlyFunction ? note.note : pos?.label}
+          {showNoteName || !viewOnlyFunction ? note.note : note.interval}
         </div>
       )}
     </div>
