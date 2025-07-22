@@ -1,7 +1,7 @@
 // Musical scale generator in TypeScript
 
 type Note = string;
-type ScaleType = 'major' | 'minor';
+type ScaleType = 'major' | 'minor' | 'majorPentatonic' | 'minorPentatonic';
 
 // Chromatic scale with all 12 notes
 const CHROMATIC_SCALE: Note[] = [
@@ -15,14 +15,16 @@ const CHROMATIC_SCALE_FLATS: Note[] = [
 
 // Scale patterns in semitones
 const SCALE_PATTERNS = {
-  major: [2, 2, 1, 2, 2, 2, 1],    // W-W-H-W-W-W-H
-  minor: [2, 1, 2, 2, 1, 2, 2]     // W-H-W-W-H-W-W
+  major: [2, 2, 1, 2, 2, 2, 1],          // W-W-H-W-W-W-H
+  minor: [2, 1, 2, 2, 1, 2, 2],          // W-H-W-W-H-W-W
+  majorPentatonic: [2, 2, 3, 2, 3],      // W-W-WH-W-WH (5 notes)
+  minorPentatonic: [3, 2, 2, 3, 2]       // WH-W-W-WH-W (5 notes)
 } as const;
 
 /**
  * Generates a musical scale based on the root note and scale type
  * @param root - The root note (e.g., 'C', 'F#', 'Bb')
- * @param scaleType - Either 'major' or 'minor'
+ * @param scaleType - 'major', 'minor', 'majorPentatonic', or 'minorPentatonic'
  * @param useFlats - Whether to use flats instead of sharps for accidentals
  * @returns Array of notes in the scale
  */
@@ -88,14 +90,16 @@ export function getRelativeScale(root: Note, scaleType: ScaleType): Note {
 }
 
 /**
- * Generates both major and minor scales for a given root note
+ * Generates all four scale types for a given root note
  * @param root - The root note
  * @param useFlats - Whether to use flats instead of sharps
- * @returns Object containing both major and minor scales
+ * @returns Object containing major, minor, and pentatonic scales
  */
-export function generateBothScales(root: Note, useFlats: boolean = false) {
+export function generateAllScales(root: Note, useFlats: boolean = false) {
   return {
     major: generateScale(root, 'major', useFlats),
-    minor: generateScale(root, 'minor', useFlats)
+    minor: generateScale(root, 'minor', useFlats),
+    majorPentatonic: generateScale(root, 'majorPentatonic', useFlats),
+    minorPentatonic: generateScale(root, 'minorPentatonic', useFlats)
   };
 }
