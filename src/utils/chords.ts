@@ -114,24 +114,6 @@ export function getLowestFret(
   return Math.min(...filteredNotes.map(note => note.fret));
 }
 
-export const genDMajorNotes = () => {
-  let startingPos = 2;
-  let allChords = [];
-
-  for (const pos of allMajorPositions) {
-    const positionNotes = placeShape(pos, startingPos);
-    console.log(getChordNameWithRoot(positionNotes));
-    startingPos = getHighestFret(positionNotes, Interval.R);
-    allChords.push({
-      notes: positionNotes,
-      chord: getChordNameWithRoot(positionNotes),
-      chordShape: pos.name,
-      color: pos.color,
-    });
-  }
-  return allChords;
-};
-
 export const generateAllPossibleMajorChords = () => {
   const getLowestChord = (allChords: Array<ChordShape>): ChordShape => {
     let lowestRootPos = Infinity;
