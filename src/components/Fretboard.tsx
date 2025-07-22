@@ -4,20 +4,12 @@ import { generateFretboardData } from '../utils/fretboardData';
 
 interface FretboardProps {
   totalFrets?: number;
-  onNoteClick?: (note: FretboardNote) => void;
 }
 
 export const Fretboard: React.FC<FretboardProps> = ({ 
-  totalFrets = 12, 
-  onNoteClick 
+  totalFrets = 12
 }) => {
-  const [fretboardData, setFretboardData] = useState<FretboardData | null>(generateFretboardData(totalFrets));
-
-  const handleNoteClick = (note: FretboardNote) => {
-    if (onNoteClick) {
-      onNoteClick(note);
-    }
-  };
+  const [fretboardData] = useState<FretboardData | null>(generateFretboardData(totalFrets));
 
   if (!fretboardData) {
     return (
@@ -56,14 +48,12 @@ export const Fretboard: React.FC<FretboardProps> = ({
               {guitarString.notes.map((note) => (
                 <div
                   key={`${note.string}-${note.fret}`}
-                  className={`
-                    bg-gray-50 border border-gray-300 py-2 px-1 text-center text-xs font-medium cursor-pointer rounded min-w-[40px] min-h-[40px] flex items-center justify-center transition-all duration-200 relative flex-1
-                    hover:bg-gray-200 hover:scale-105 hover:shadow-lg
+                  className={
+                    `bg-gray-50 border border-gray-300 py-2 px-1 text-center text-xs font-medium rounded min-w-[40px] min-h-[40px] flex items-center justify-center transition-all duration-200 relative flex-1
                     ${note.isHighlighted ? 'bg-guitar-gold text-black font-bold shadow-lg' : ''}
                     ${note.isSelected ? 'bg-red-500 text-white font-bold shadow-lg' : ''}
-                    ${note.fret === 0 ? 'bg-blue-50 border-blue-500' : ''}
-                  `}
-                  onClick={() => handleNoteClick(note)}
+                    ${note.fret === 0 ? 'bg-blue-50 border-blue-500' : ''}`
+                  }
                   data-fret={note.fret}
                 >
                   {note.note}
