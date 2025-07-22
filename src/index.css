@@ -38,52 +38,170 @@
   }
 }
 
+:root {
+  --color-c-shape: #332288;
+  --color-a-shape: #44aa99;
+  --color-g-shape: #88ccee;
+  --color-e-shape: #ddcc77;
+  --color-d-shape: #cc6677;
+}
+
 .bg-white {
   background-color: #fff;
 }
 
 .C-shape-note {
-  background-color: var(--color-red-500);
+  background-color: var(--color-c-shape);
   color: #fff;
-  border-color: var(--color-red-500);
+  border-color: var(--color-c-shape);
 }
 .C-shape-note-root {
-  color: var(--color-red-500);
+  color: var(--color-c-shape);
   background-color: #fff;
 }
 .A-shape-note {
-  background-color: var(--color-blue-500);
+  background-color: var(--color-a-shape);
   color: #fff;
-  border-color: var(--color-blue-500);
+  border-color: var(--color-a-shape);
 }
 .A-shape-note-root {
-  color: var(--color-blue-500);
+  color: var(--color-a-shape);
   background-color: #fff;
 }
 .G-shape-note {
-  background-color: var(--color-cyan-500);
+  background-color: var(--color-g-shape);
   color: #fff;
-  border-color: var(--color-cyan-500);
+  border-color: var(--color-g-shape);
 }
 .G-shape-note-root {
-  color: var(--color-cyan-500);
+  color: var(--color-g-shape);
   background-color: #fff;
 }
 .E-shape-note {
-  background-color: var(--color-green-500);
+  background-color: var(--color-e-shape);
   color: #fff;
-  border-color: var(--color-green-500);
+  border-color: var(--color-e-shape);
 }
 .E-shape-note-root {
-  color: var(--color-green-500);
+  color: var(--color-e-shape);
   background-color: #fff;
 }
 .D-shape-note {
-  background-color: var(--color-yellow-500);
+  background-color: var(--color-d-shape);
   color: #fff;
-  border-color: var(--color-yellow-500);
+  border-color: var(--color-d-shape);
 }
 .D-shape-note-root {
-  color: var(--color-yellow-500);
+  color: var(--color-d-shape);
   background-color: #fff;
+}
+
+.C-shape-A-shape-note-root {
+  color: #000;
+  background-color: #fff;
+  border-right-color: var(--color-a-shape);
+  border-top-color: var(--color-a-shape);
+  border-left-color: var(--color-c-shape);
+  border-bottom-color: var(--color-c-shape);
+}
+
+.C-shape-A-shape-note {
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    var(--color-c-shape) 0%,
+    var(--color-c-shape) 50%,
+    var(--color-a-shape) 50%,
+    var(--color-a-shape) 100%
+  );
+  border-color: transparent;
+  border-style: hidden;
+}
+
+.A-shape-G-shape-note-root {
+  color: #000;
+  background-color: #fff;
+  border-right-color: var(--color-g-shape);
+  border-top-color: var(--color-g-shape);
+  border-left-color: var(--color-a-shape);
+  border-bottom-color: var(--color-a-shape);
+}
+
+.A-shape-G-shape-note {
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    var(--color-a-shape) 0%,
+    var(--color-a-shape) 50%,
+    var(--color-g-shape) 50%,
+    var(--color-g-shape) 100%
+  );
+  border-color: transparent;
+  border-style: hidden;
+}
+
+.G-shape-E-shape-note-root {
+  color: #000;
+  background-color: #fff;
+  border-right-color: var(--color-e-shape);
+  border-top-color: var(--color-e-shape);
+  border-left-color: var(--color-g-shape);
+  border-bottom-color: var(--color-g-shape);
+}
+
+.G-shape-E-shape-note {
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    var(--color-g-shape) 0%,
+    var(--color-g-shape) 50%,
+    var(--color-e-shape) 50%,
+    var(--color-e-shape) 100%
+  );
+  border-color: transparent;
+  border-style: hidden;
+}
+
+.E-shape-D-shape-note-root {
+  color: #000;
+  background-color: #fff;
+  border-right-color: var(--color-d-shape);
+  border-top-color: var(--color-d-shape);
+  border-left-color: var(--color-e-shape);
+  border-bottom-color: var(--color-e-shape);
+}
+
+.E-shape-D-shape-note {
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    var(--color-e-shape) 0%,
+    var(--color-e-shape) 50%,
+    var(--color-d-shape) 50%,
+    var(--color-d-shape) 100%
+  );
+  border-color: transparent;
+  border-style: hidden;
+}
+
+.D-shape-C-shape-note-root {
+  color: #000;
+  background-color: #fff;
+  border-right-color: var(--color-c-shape);
+  border-top-color: var(--color-c-shape);
+  border-left-color: var(--color-d-shape);
+  border-bottom-color: var(--color-d-shape);
+}
+
+.D-shape-C-shape-note {
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    var(--color-d-shape) 0%,
+    var(--color-d-shape) 50%,
+    var(--color-c-shape) 50%,
+    var(--color-c-shape) 100%
+  );
+  border-color: transparent;
+  border-style: hidden;
 }

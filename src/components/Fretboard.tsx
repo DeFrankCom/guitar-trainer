@@ -24,26 +24,25 @@ export const Fretboard: React.FC<FretboardProps> = ({
     generateFretboardData(NUM_FRETS)
   );
 
-  const getChordByNote = (note: FretboardNote) => {
-    let selectedChord;
+  const getChordByNote = (note: FretboardNote): ChordStructure[] => {
+    let selectedChords = [];
 
-    console.log(chordStructure);
     for (const chord of chordStructure) {
       const correspondingNote = chord.notes.find(
         n => n.fret === note.fret && n.string === note.string
       );
       if (correspondingNote) {
-        selectedChord = chord;
-        break;
+        selectedChords.push(chord);
       }
     }
-    return selectedChord;
+    return selectedChords;
   };
 
   const getNoteOfScale = (note: FretboardNote) => {
     return selectedScale.find(scaleNote => scaleNote.note === note.note);
   };
 
+  console.log(chordStructure);
   return (
     <div className='flex justify-center items-center w-full'>
       <div className='bg-guitar-brown border-3 border-guitar-dark rounded-lg p-5 shadow-2xl w-full max-w-full overflow-x-auto'>
@@ -61,64 +60,66 @@ export const Fretboard: React.FC<FretboardProps> = ({
         </div>
         {/* Cuerdas y notas */}
         {fretboardData.strings.map(
-          (guitarString: FretboardData['strings'][number]) => (
-            <div
-              key={guitarString.stringNumber}
-              className='flex items-center w-full'
-            >
-              {/* Nota al aire como círculo */}
-              <div className='flex items-center justify-center min-w-[50px] mr-2.5 shrink-0'>
-                <NoteCmp
-                  key={0}
-                  shape={
-                    getChordByNote(guitarString.notes[0])?.chordShape ?? 'none'
-                  }
-                  note={{
-                    ...guitarString.notes[0],
-                    interval:
-                      getNoteOfScale(guitarString.notes[0])?.interval ??
-                      undefined,
-                  }}
-                  showNoteName={showNoteName}
-                  viewOnlyFunction={viewOnlyFunction}
-                  noteBelongsToScale={!!getNoteOfScale(guitarString.notes[0])}
-                  withBorderRight={false}
-                  isOnLastFret={false}
-                />
-              </div>
-              <div className='relative flex flex-1 gap-0.5 w-full border-l-[4px]'>
-                {guitarString.notes
-                  .slice(1)
-                  .map((note: FretboardNote, index: number) => {
-                    const scaleNote = getNoteOfScale(note);
-                    const chord = getChordByNote(note);
-                    return (
-                      <NoteCmp
-                        key={note.fret}
-                        shape={chord?.chordShape ?? 'none'}
-                        note={{
-                          ...note,
-                          interval: scaleNote?.interval ?? undefined,
-                        }}
-                        showNoteName={showNoteName}
-                        viewOnlyFunction={viewOnlyFunction}
-                        noteBelongsToScale={!!scaleNote}
-                        isOnLastFret={index + 1 === NUM_FRETS}
-                      />
-                    );
-                  })}
-                <div
-                  className='absolute w-full z-1 h-px top-[0] bottom-[0]'
-                  style={{
-                    margin: 'auto 0',
-                    color: 'rgba(170, 170, 170, 0.5)',
-                  }}
-                >
-                  <hr />
+          (guitarString: FretboardData['strings'][number]) => {
+            const zeroNoteChordShape = getChordByNote(guitarString.notes[0])[0];
+            const zeroNoteScale = getNoteOfScale(guitarString.notes[0]);
+            return (
+              <div
+                key={guitarString.stringNumber}
+                className='flex items-center w-full'
+              >
+                {/* Nota al aire como círculo */}
+                <div className='flex items-center justify-center min-w-[50px] mr-2.5 shrink-0'>
+                  <NoteCmp
+                    key={0}
+                    shapes={[zeroNoteChordShape?.chordShape ?? 'none']}
+                    note={{
+                      ...guitarString.notes[0],
+                      interval: zeroNoteScale?.interval ?? undefined,
+                    }}
+                    showNoteName={showNoteName}
+                    viewOnlyFunction={viewOnlyFunction}
+                    noteBelongsToScale={!!zeroNoteScale}
+                    noteBelongsToChord={!!zeroNoteChordShape}
+                    withBorderRight={false}
+                    isOnLastFret={false}
+                  />
+                </div>
+                <div className='relative flex flex-1 gap-0.5 w-full border-l-[4px]'>
+                  {guitarString.notes
+                    .slice(1)
+                    .map((note: FretboardNote, index: number) => {
+                      const scaleNote = getNoteOfScale(note);
+                      const chordPos = getChordByNote(note);
+                      return (
+                        <NoteCmp
+                          key={note.fret}
+                          shapes={chordPos.map(c => c.chordShape) ?? 'none'}
+                          note={{
+                            ...note,
+                            interval: scaleNote?.interval ?? undefined,
+                          }}
+                          showNoteName={showNoteName}
+                          viewOnlyFunction={viewOnlyFunction}
+                          noteBelongsToScale={!!scaleNote}
+                          noteBelongsToChord={chordPos.length >= 1}
+                          isOnLastFret={index + 1 === NUM_FRETS}
+                        />
+                      );
+                    })}
+                  <div
+                    className='absolute w-full z-1 h-px top-[0] bottom-[0]'
+                    style={{
+                      margin: 'auto 0',
+                      color: 'rgba(170, 170, 170, 0.5)',
+                    }}
+                  >
+                    <hr />
+                  </div>
                 </div>
               </div>
-            </div>
-          )
+            );
+          }
         )}
       </div>
     </div>
