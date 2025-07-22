@@ -1,0 +1,125 @@
+.fretboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  min-height: 100vh;
+}
+
+.fretboard {
+  background: #8b4513;
+  border: 3px solid #654321;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-template-columns: 60px repeat(auto-fit, minmax(50px, 1fr));
+  gap: 2px;
+  max-width: 90vw;
+  overflow-x: auto;
+}
+
+.fret-header {
+  display: contents;
+}
+
+.fret-number {
+  background: #654321;
+  color: #f4f4f4;
+  padding: 8px 4px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 4px;
+  min-width: 40px;
+}
+
+.string-row {
+  display: contents;
+}
+
+.string-label {
+  background: #654321;
+  color: #f4f4f4;
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+}
+
+.fret-note {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 8px 4px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  min-width: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.fret-note:hover {
+  background: #e9ecef;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fret-note.highlighted {
+  background: #ffd700;
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.fret-note.selected {
+  background: #dc3545;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(220, 53, 69, 0.6);
+}
+
+/* Estilos para cuerdas al aire (fret 0) */
+.fret-note:has([data-fret="0"]) {
+  background: #e3f2fd;
+  border-color: #2196f3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .fretboard {
+    padding: 10px;
+    gap: 1px;
+  }
+  
+  .fret-note {
+    min-width: 30px;
+    min-height: 30px;
+    font-size: 10px;
+    padding: 4px 2px;
+  }
+  
+  .string-label {
+    min-width: 40px;
+    font-size: 12px;
+    padding: 8px 4px;
+  }
+  
+  .fret-number {
+    min-width: 30px;
+    font-size: 10px;
+    padding: 4px 2px;
+  }
+} 
