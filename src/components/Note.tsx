@@ -1,5 +1,4 @@
 import type { FretboardNote } from '@/types/FretboardNote';
-import type { ShapeFretLocation } from '@/types/ShapeFretLocation';
 import cx from 'classnames';
 
 const colorMap: Record<string, string> = {

@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import type { FretboardData, FretboardNote } from '@/types/FretboardNote';
 import { generateFretboardData } from '@/utils/fretboardData';
-import { cagedPositions } from '@/utils/cagedPositions';
 import { Note as NoteCmp } from '@/components/Note';
 import type { ScaleNote } from '@/utils/scales';
-import { C_Shape, placeShape, genDMajorNotes } from '@/types/FretboardShape';
-// Definición de las posiciones, etiquetas y colores según la imagen
 
 const NUM_FRETS = 17;
 
@@ -24,7 +21,6 @@ export const Fretboard: React.FC<FretboardProps> = ({
     generateFretboardData(NUM_FRETS)
   );
 
-  console.log(genDMajorNotes());
   return (
     <div className='flex justify-center items-center w-full'>
       <div className='bg-guitar-brown border-3 border-guitar-dark rounded-lg p-5 shadow-2xl w-full max-w-full overflow-x-auto'>
@@ -52,16 +48,13 @@ export const Fretboard: React.FC<FretboardProps> = ({
               </div>
               <div className='flex flex-1 gap-0.5 w-full'>
                 {guitarString.notes.map((note: FretboardNote) => {
-                  const color = cagedPositions.find(
-                    (p: any) => p.fret === note.fret
-                  )?.color;
                   const scaleNote = selectedScale.find(
                     scaleNote => scaleNote.note === note.note
                   );
                   return (
                     <NoteCmp
                       key={note.fret}
-                      color={color && !!scaleNote ? color : 'none'}
+                      color={'none'}
                       note={{
                         ...note,
                         interval: scaleNote?.interval ?? undefined,

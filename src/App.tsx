@@ -3,7 +3,8 @@ import { Fretboard } from '@/components/Fretboard';
 import { Selector } from '@/components/ui/Selector';
 import Switch from '@mui/material/Switch';
 import { generateScale, FULL_CHROMATIC_SCALE, allScales } from './utils/scales';
-import type { ScaleType } from './utils/scales';
+import type { ScaleType } from '@/utils/scales';
+import { generateAllPossibleMajorChords } from '@/utils/chords';
 
 function App() {
   const [checked, setChecked] = useState(true);
@@ -22,7 +23,7 @@ function App() {
     setViewOnlyFunction(event.target.checked);
   };
 
-  console.log(selectedScale);
+  console.log(generateAllPossibleMajorChords());
 
   return (
     <div className='flex flex-col justify-center gap-4 min-h-screen overflow-x-hidden'>
