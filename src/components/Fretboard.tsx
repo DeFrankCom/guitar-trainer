@@ -38,11 +38,11 @@ export const Fretboard: React.FC<FretboardProps> = ({
       <div className="bg-guitar-brown border-3 border-guitar-dark rounded-lg p-5 shadow-2xl w-full max-w-full overflow-x-auto">
         {/* Encabezado con números de trastes */}
         <div className="flex mb-2.5 w-full">
-          <div className="bg-transparent min-w-[60px] mr-2.5 flex-shrink-0"></div>
-          {Array.from({ length: fretboardData.totalFrets + 1 }, (_, i) => (
+          <div className="bg-transparent min-w-[50px] mr-2.5 flex-shrink-0"></div>
+          {Array.from({ length: fretboardData.totalFrets }, (_, i) => (
             <div 
               key={i} 
-              className="bg-guitar-dark text-gray-100 py-2 px-1 text-center font-bold text-xs rounded min-w-[40px] mr-0.5 flex-1"
+              className="bg-guitar-dark min-w-[124px] text-gray-100 py-2 px-1 text-center font-bold text-xs rounded min-w-[40px] mr-0.5 flex-1"
             >
               {i+1}
             </div>
