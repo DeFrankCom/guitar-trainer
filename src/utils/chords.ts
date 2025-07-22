@@ -183,7 +183,11 @@ export const generateMajorChordStructure = (startingChordName: string) => {
   );
   while (chordsAdded < 5) {
     const index = (posIndex + chordsAdded) % 5;
-    const positionNotes = placeShape(allMajorPositions[index], lowestFret);
+    const nextPosition = allMajorPositions[index];
+    if (nextPosition.name === 'C-shape') {
+      lowestFret -= 1;
+    }
+    const positionNotes = placeShape(nextPosition, lowestFret);
     lowestFret = getHighestFret(positionNotes, Interval.R);
     allChords.push({
       notes: positionNotes,
