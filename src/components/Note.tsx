@@ -15,15 +15,16 @@ type NoteProps = {
 };
 
 export const Note: React.FC<NoteProps> = ({pos, note}) => {
-    if (!pos) {
-        return <div key={note.fret} className="min-w-[40px] min-h-[40px] flex-1"></div>;
-      }
-      return (
+  return (
+    <div key={note.fret} className="flex items-center justify-center min-h-[40px] flex-1">
+      {pos && (
         <div
-          key={note.fret}
-          className={`flex items-center justify-center min-w-[40px] min-h-[40px] rounded-full border-2 font-bold text-lg shadow-md ${colorMap[pos.color]}`}
-        >
-          {pos.label}
-        </div>
-      );
+        key={note.fret}
+        className={`flex items-center justify-center h-full min-w-[40px] rounded-full border-2 font-bold text-lg shadow-md ${colorMap[pos.color]}`}
+      >
+        {pos.label}
+      </div>
+      )}
+    </div>
+  )
 };
