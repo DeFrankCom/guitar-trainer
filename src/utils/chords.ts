@@ -174,7 +174,7 @@ export const generateMajorRootChordStructure = (
   let posIndex = allMajorPositions.findIndex(
     pos => pos.name === chord.chordShape
   );
-  while (chordsAdded < 5) {
+  while (chordsAdded < 6) {
     const index = (posIndex + chordsAdded) % 5;
     const nextPosition = allMajorPositions[index];
     if (nextPosition.name === 'C-shape' && chordsAdded) {
