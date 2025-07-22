@@ -1,7 +1,11 @@
 // Musical scale generator in TypeScript
 
-export type Note = string;
-export type ScaleType = 'major' | 'minor' | 'majorPentatonic' | 'minorPentatonic';
+type Note = string;
+type ScaleType = 'major' | 'minor' | 'majorPentatonic' | 'minorPentatonic';
+type ScaleNote = {
+  note: string;
+  interval: string;
+};
 
 // Chromatic scale with all 12 notes
 const CHROMATIC_SCALE: Note[] = [
@@ -21,16 +25,25 @@ const SCALE_PATTERNS = {
   minorPentatonic: [3, 2, 2, 3, 2]       // WH-W-W-WH-W (5 notes)
 } as const;
 
+// Interval names for each scale type
+const INTERVAL_NAMES = {
+  major: ['1', '2', '3', '4', '5', '6', '7', '8'],
+  minor: ['1', '2', '♭3', '4', '5', '♭6', '♭7', '8'],
+  majorPentatonic: ['1', '2', '3', '5', '6', '8'],
+  minorPentatonic: ['1', '♭3', '4', '5', '♭7', '8']
+} as const;
+
 /**
  * Generates a musical scale based on the root note and scale type
  * @param root - The root note (e.g., 'C', 'F#', 'Bb')
  * @param scaleType - 'major', 'minor', 'majorPentatonic', or 'minorPentatonic'
  * @param useFlats - Whether to use flats instead of sharps for accidentals
- * @returns Array of notes in the scale
+ * @returns Array of objects containing note and interval information
  */
-export function generateScale(root: Note, scaleType: ScaleType, useFlats: boolean = false): Note[] {
+export function generateScale(root: Note, scaleType: ScaleType, useFlats: boolean = false): ScaleNote[] {
   const chromaticScale = useFlats ? CHROMATIC_SCALE_FLATS : CHROMATIC_SCALE;
   const pattern = SCALE_PATTERNS[scaleType];
+  const intervalNames = INTERVAL_NAMES[scaleType];
   
   // Find the starting position of the root note
   let rootIndex = chromaticScale.indexOf(root);
@@ -48,13 +61,16 @@ export function generateScale(root: Note, scaleType: ScaleType, useFlats: boolea
     // This handles cases where user inputs 'C#' but we want flats, etc.
   }
   
-  const scale: Note[] = [root];
+  const scale: ScaleNote[] = [{ note: root, interval: intervalNames[0] }];
   let currentIndex = rootIndex;
   
   // Generate the scale using the pattern
-  for (const interval of pattern) {
-    currentIndex = (currentIndex + interval) % 12;
-    scale.push(chromaticScale[currentIndex]);
+  for (let i = 0; i < pattern.length; i++) {
+    currentIndex = (currentIndex + pattern[i]) % 12;
+    scale.push({ 
+      note: chromaticScale[currentIndex], 
+      interval: intervalNames[i + 1] 
+    });
   }
   
   return scale;
@@ -93,7 +109,7 @@ export function getRelativeScale(root: Note, scaleType: ScaleType): Note {
  * Generates all four scale types for a given root note
  * @param root - The root note
  * @param useFlats - Whether to use flats instead of sharps
- * @returns Object containing major, minor, and pentatonic scales
+ * @returns Object containing major, minor, and pentatonic scales with intervals
  */
 export function generateAllScales(root: Note, useFlats: boolean = false) {
   return {
