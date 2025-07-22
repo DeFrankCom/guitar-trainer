@@ -7,6 +7,12 @@ import type {
 } from '@/types/FretboardShape';
 import { Interval } from '@/types/Interval';
 import { allMajorPositions } from './majorShapes';
+import { allMajorPentatonicPositions } from './majorPentatonicShapes';
+
+const POSITIONS_AVAILABLE = {
+  rootNotes: allMajorPositions,
+  pentatonic: allMajorPentatonicPositions,
+};
 
 const NOTE_NAMES = [
   'C',
@@ -114,7 +120,7 @@ export function getLowestFret(
   return Math.min(...filteredNotes.map(note => note.fret));
 }
 
-export const generateAllPossibleMajorChords = () => {
+export const generateAllPossibleChords = (positions: FretboardShape[]) => {
   const getLowestChord = (allChords: Array<ChordShape>): ChordShape => {
     let lowestRootPos = Infinity;
     let selectedChord: ChordShape = { notes: [], chordShape: '', chord: '' };
@@ -130,7 +136,7 @@ export const generateAllPossibleMajorChords = () => {
 
   const allChords = [];
   for (let i = 0; i <= 12; i++) {
-    for (const pos of allMajorPositions) {
+    for (const pos of positions) {
       const positionNotes = placeShape(pos, i);
       allChords.push({
         notes: positionNotes,
@@ -152,14 +158,19 @@ export const generateAllPossibleMajorChords = () => {
   };
 };
 
-export const generateMajorChordStructure = (startingChordName: string) => {
-  const { rootChords } = generateAllPossibleMajorChords();
+export const generateMajorRootChordStructure = (
+  startingChordName: string,
+  type: keyof typeof POSITIONS_AVAILABLE
+) => {
+  console.log('FOR ', startingChordName);
+  const { rootChords } = generateAllPossibleChords(allMajorPositions);
   const chord = rootChords.find(
     chordShape => chordShape.chord === startingChordName
   )!;
   let lowestFret = getLowestFret(chord.notes);
   const allChords: Array<ChordStructure> = [];
   let chordsAdded = 0;
+  const selectedPosition = POSITIONS_AVAILABLE[type];
   let posIndex = allMajorPositions.findIndex(
     pos => pos.name === chord.chordShape
   );
@@ -169,11 +180,13 @@ export const generateMajorChordStructure = (startingChordName: string) => {
     if (nextPosition.name === 'C-shape' && chordsAdded) {
       lowestFret -= 1;
     }
-    const positionNotes = placeShape(nextPosition, lowestFret);
-    lowestFret = getHighestFret(positionNotes, Interval.R);
+    const rootPositionNotes = placeShape(nextPosition, lowestFret);
+    const selectedTypeNotes = placeShape(selectedPosition[index], lowestFret);
+    lowestFret = getHighestFret(rootPositionNotes, Interval.R);
     allChords.push({
-      notes: positionNotes,
-      chord: getChordNameWithRoot(positionNotes),
+      notes: rootPositionNotes,
+      selectedTypeNotes,
+      chord: getChordNameWithRoot(rootPositionNotes),
       chordShape: allMajorPositions[index].name,
       color: allMajorPositions[index].color,
     });

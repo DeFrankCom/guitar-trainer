@@ -26,7 +26,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
     let selectedChords = [];
 
     for (const chord of chordStructure) {
-      const correspondingNote = chord.notes.find(
+      const correspondingNote = chord.selectedTypeNotes.find(
         n => n.fret === note.fret && n.string === note.string
       );
       if (correspondingNote) {

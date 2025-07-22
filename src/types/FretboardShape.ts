@@ -28,4 +28,5 @@ export interface ChordShape {
 
 export interface ChordStructure extends ChordShape {
   color: string;
+  selectedTypeNotes: FretboardNote[];
 }
