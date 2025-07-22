@@ -51,16 +51,19 @@ export const Fretboard: React.FC<FretboardProps> = ({
               {guitarString.openNote}
             </div>
             
-            {/* Notas de la cuerda */}
-            {guitarString.notes.map((note) => (
-              <div
-                key={`${note.string}-${note.fret}`}
-                className={`fret-note ${note.isHighlighted ? 'highlighted' : ''} ${note.isSelected ? 'selected' : ''}`}
-                onClick={() => handleNoteClick(note)}
-              >
-                {note.note}
-              </div>
-            ))}
+            {/* Contenedor de notas de la cuerda */}
+            <div className="fret-notes-container">
+              {guitarString.notes.map((note) => (
+                <div
+                  key={`${note.string}-${note.fret}`}
+                  className={`fret-note ${note.isHighlighted ? 'highlighted' : ''} ${note.isSelected ? 'selected' : ''}`}
+                  onClick={() => handleNoteClick(note)}
+                  data-fret={note.fret}
+                >
+                  {note.note}
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
