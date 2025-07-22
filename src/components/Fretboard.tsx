@@ -4,6 +4,7 @@ import { generateFretboardData } from '@/utils/fretboardData';
 import { cagedPositions } from '@/utils/cagedPositions';
 import { Note as NoteCmp } from '@/components/Note';
 import type { ScaleNote } from '@/utils/scales';
+import { C_Shape, placeShape, genDMajorNotes } from '@/types/FretboardShape';
 // Definición de las posiciones, etiquetas y colores según la imagen
 
 const NUM_FRETS = 17;
@@ -23,7 +24,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
     generateFretboardData(NUM_FRETS)
   );
 
-  console.log(selectedScale);
+  console.log(genDMajorNotes());
   return (
     <div className='flex justify-center items-center w-full'>
       <div className='bg-guitar-brown border-3 border-guitar-dark rounded-lg p-5 shadow-2xl w-full max-w-full overflow-x-auto'>
