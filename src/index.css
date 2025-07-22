@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+@import '@fontsource/roboto/300.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
 
 @layer base {
   * {
@@ -44,6 +48,26 @@
   --color-g-shape: #88ccee;
   --color-e-shape: #ddcc77;
   --color-d-shape: #cc6677;
+}
+
+.c-shape-text {
+  color: var(--color-c-shape);
+}
+
+.a-shape-text {
+  color: var(--color-a-shape);
+}
+
+.g-shape-text {
+  color: var(--color-g-shape);
+}
+
+.e-shape-text {
+  color: var(--color-e-shape);
+}
+
+.d-shape-text {
+  color: var(--color-d-shape);
 }
 
 .neutral-note {

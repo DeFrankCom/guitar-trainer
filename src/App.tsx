@@ -15,6 +15,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import { allMajorPositions } from '@/utils/majorShapes';
+import Typography from '@mui/material/Typography';
 
 function App() {
   const [showViewNote, setShowViewNote] = useState(true);
@@ -111,6 +112,23 @@ function App() {
               />
             </RadioGroup>
           </FormControl>
+        </div>
+        <div className='flex justify-center items-center gap-8'>
+          <Typography variant='h1' gutterBottom className='c-shape-text'>
+            C
+          </Typography>
+          <Typography variant='h1' gutterBottom className='a-shape-text'>
+            A
+          </Typography>
+          <Typography variant='h1' gutterBottom className='g-shape-text'>
+            G
+          </Typography>
+          <Typography variant='h1' gutterBottom className='e-shape-text'>
+            E
+          </Typography>
+          <Typography variant='h1' gutterBottom className='d-shape-text'>
+            D
+          </Typography>
         </div>
       </div>
       <main className='flex flex-col items-center gap-5 w-full'>
