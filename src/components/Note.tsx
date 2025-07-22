@@ -26,7 +26,7 @@ export const Note: FC<NoteProps> = ({
 }) => {
   const shapeClassname = useMemo(() => {
     if (shapes.length === 0) {
-      return 'bg-white';
+      return 'neutral-note';
     }
     if (shapes.length === 1) {
       return note.interval === '1'

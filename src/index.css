@@ -46,8 +46,10 @@
   --color-d-shape: #cc6677;
 }
 
-.bg-white {
+.neutral-note {
   background-color: #fff;
+  border-color: #7777777a;
+  color: #777;
 }
 
 .C-shape-note {

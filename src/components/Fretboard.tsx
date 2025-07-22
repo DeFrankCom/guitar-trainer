@@ -72,7 +72,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
                 <div className='flex items-center justify-center min-w-[50px] mr-2.5 shrink-0'>
                   <NoteCmp
                     key={0}
-                    shapes={[zeroNoteChordShape?.chordShape ?? 'none']}
+                    shapes={[zeroNoteChordShape?.chordShape ?? 'neutral']}
                     note={{
                       ...guitarString.notes[0],
                       interval: zeroNoteScale?.interval ?? undefined,
