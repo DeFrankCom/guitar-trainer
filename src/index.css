@@ -37,3 +37,7 @@
       source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
 }
+
+.bg-white {
+  background-color: #fff;
+}

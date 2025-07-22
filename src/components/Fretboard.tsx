@@ -64,7 +64,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
           (guitarString: FretboardData['strings'][number]) => (
             <div
               key={guitarString.stringNumber}
-              className='flex mb-0.5 items-center w-full'
+              className='flex items-center w-full'
             >
               {/* Nota al aire como círculo */}
               <div className='flex items-center justify-center min-w-[50px] mr-2.5 shrink-0'>
@@ -80,26 +80,40 @@ export const Fretboard: React.FC<FretboardProps> = ({
                   showNoteName={showNoteName}
                   viewOnlyFunction={viewOnlyFunction}
                   noteBelongsToScale={!!getNoteOfScale(guitarString.notes[0])}
+                  withBorderRight={false}
+                  isOnLastFret={false}
                 />
               </div>
-              <div className='flex flex-1 gap-0.5 w-full'>
-                {guitarString.notes.slice(1).map((note: FretboardNote) => {
-                  const scaleNote = getNoteOfScale(note);
-                  const chord = getChordByNote(note);
-                  return (
-                    <NoteCmp
-                      key={note.fret}
-                      color={chord?.color ?? 'none'}
-                      note={{
-                        ...note,
-                        interval: scaleNote?.interval ?? undefined,
-                      }}
-                      showNoteName={showNoteName}
-                      viewOnlyFunction={viewOnlyFunction}
-                      noteBelongsToScale={!!scaleNote}
-                    />
-                  );
-                })}
+              <div className='relative flex flex-1 gap-0.5 w-full border-l-[4px]'>
+                {guitarString.notes
+                  .slice(1)
+                  .map((note: FretboardNote, index: number) => {
+                    const scaleNote = getNoteOfScale(note);
+                    const chord = getChordByNote(note);
+                    return (
+                      <NoteCmp
+                        key={note.fret}
+                        color={chord?.color ?? 'none'}
+                        note={{
+                          ...note,
+                          interval: scaleNote?.interval ?? undefined,
+                        }}
+                        showNoteName={showNoteName}
+                        viewOnlyFunction={viewOnlyFunction}
+                        noteBelongsToScale={!!scaleNote}
+                        isOnLastFret={index + 1 === NUM_FRETS}
+                      />
+                    );
+                  })}
+                <div
+                  className='absolute w-full z-1 h-px top-[0] bottom-[0]'
+                  style={{
+                    margin: 'auto 0',
+                    color: 'rgba(170, 170, 170, 0.5)',
+                  }}
+                >
+                  <hr />
+                </div>
               </div>
             </div>
           )

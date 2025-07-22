@@ -21,6 +21,8 @@ type NoteProps = {
   showNoteName: boolean;
   viewOnlyFunction: boolean;
   noteBelongsToScale: boolean;
+  withBorderRight?: boolean;
+  isOnLastFret: boolean;
 };
 
 export const Note: React.FC<NoteProps> = ({
@@ -29,18 +31,24 @@ export const Note: React.FC<NoteProps> = ({
   showNoteName,
   viewOnlyFunction,
   noteBelongsToScale,
+  withBorderRight = true,
+  isOnLastFret,
 }) => {
   const colorMapKey = note.interval === '1' ? `${color}First` : color;
   return (
     <div
       key={note.fret}
-      className='flex items-center justify-center min-h-[48px] flex-1'
+      className={cx('flex items-center justify-center min-h-[48px] flex-1', {
+        'border-r-[1px]': withBorderRight && !isOnLastFret,
+      })}
+      style={{ padding: '0.25rem 0' }}
     >
       {noteBelongsToScale && (
         <div
           key={note.fret}
           className={cx(
-            'flex items-center justify-center h-[48px] w-[48px] rounded-full border-4 font-bold text-xl shadow-lg transition-all duration-200',
+            'flex items-center justify-center h-[48px] w-[48px] rounded-full border-4 font-bold text-xl shadow-lg transition-all duration-200 z-2',
+            { 'bg-white': !!colorMapKey },
             colorMap[colorMapKey ?? 'none']
           )}
         >
