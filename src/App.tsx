@@ -10,8 +10,7 @@ import {
 } from '@/utils/chords';
 
 function App() {
-  const [checked, setChecked] = useState(true);
-  const [viewOnlyFunction, setViewOnlyFunction] = useState(false);
+  const [showViewNote, setShowViewNote] = useState(true);
   const [selectedRootNote, setSelectedRootNote] = useState('C');
   const [majorChords] = useState(generateAllPossibleMajorChords());
   const [selectedScaleType, setSelectedScaleType] =
@@ -26,10 +25,7 @@ function App() {
     [selectedRootNote, selectedScaleType, majorChords]
   );
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
-  const handleVisibility = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setViewOnlyFunction(event.target.checked);
+    setShowViewNote(event.target.checked);
   };
 
   return (
@@ -65,19 +61,13 @@ function App() {
         </div>
         <div className='flex justify-center items-center'>
           <label>Notas</label>
-          <Switch checked={checked} onChange={handleChange} />
+          <Switch checked={showViewNote} onChange={handleChange} />
           <label>Intervalos</label>
-        </div>
-        <div className='flex justify-center align-center'>
-          <label>Todas</label>
-          <Switch checked={viewOnlyFunction} onChange={handleVisibility} />
-          <label>Función</label>
         </div>
       </div>
       <main className='flex flex-col items-center gap-5 w-full'>
         <Fretboard
-          showNotes={!checked}
-          viewOnlyFunction={viewOnlyFunction}
+          showNotes={!showViewNote}
           selectedScale={selectedScale}
           chordStructure={chordStructure}
         />

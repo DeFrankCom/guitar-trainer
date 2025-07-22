@@ -11,12 +11,10 @@ type FretboardProps = {
   selectedScale: ScaleNote[];
   chordStructure: ChordStructure[];
   showNotes: boolean;
-  viewOnlyFunction: boolean;
 };
 
 export const Fretboard: React.FC<FretboardProps> = ({
   showNotes: showNoteName,
-  viewOnlyFunction,
   selectedScale,
   chordStructure = [],
 }) => {
@@ -78,7 +76,6 @@ export const Fretboard: React.FC<FretboardProps> = ({
                       interval: zeroNoteScale?.interval ?? undefined,
                     }}
                     showNoteName={showNoteName}
-                    viewOnlyFunction={viewOnlyFunction}
                     noteBelongsToScale={!!zeroNoteScale}
                     noteBelongsToChord={!!zeroNoteChordShape}
                     withBorderRight={false}
@@ -100,7 +97,6 @@ export const Fretboard: React.FC<FretboardProps> = ({
                             interval: scaleNote?.interval ?? undefined,
                           }}
                           showNoteName={showNoteName}
-                          viewOnlyFunction={viewOnlyFunction}
                           noteBelongsToScale={!!scaleNote}
                           noteBelongsToChord={chordPos.length >= 1}
                           isOnLastFret={index + 1 === NUM_FRETS}

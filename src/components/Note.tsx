@@ -7,7 +7,6 @@ type NoteProps = {
   shapes: Array<string>;
   note: FretboardNote;
   showNoteName: boolean;
-  viewOnlyFunction: boolean;
   noteBelongsToScale: boolean;
   noteBelongsToChord: boolean;
   withBorderRight?: boolean;
@@ -18,7 +17,6 @@ export const Note: FC<NoteProps> = ({
   shapes,
   note,
   showNoteName,
-  viewOnlyFunction,
   noteBelongsToScale,
   noteBelongsToChord,
   withBorderRight = true,
@@ -55,7 +53,7 @@ export const Note: FC<NoteProps> = ({
             { 'font-bold': note.interval === '1' || noteBelongsToChord }
           )}
         >
-          {showNoteName || !viewOnlyFunction
+          {showNoteName
             ? note.note
             : note.interval === '1'
               ? 'R'
