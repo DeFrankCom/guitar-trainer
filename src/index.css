@@ -41,3 +41,49 @@
 .bg-white {
   background-color: #fff;
 }
+
+.C-shape-note {
+  background-color: var(--color-red-500);
+  color: #fff;
+  border-color: var(--color-red-500);
+}
+.C-shape-note-root {
+  color: var(--color-red-500);
+  background-color: #fff;
+}
+.A-shape-note {
+  background-color: var(--color-blue-500);
+  color: #fff;
+  border-color: var(--color-blue-500);
+}
+.A-shape-note-root {
+  color: var(--color-blue-500);
+  background-color: #fff;
+}
+.G-shape-note {
+  background-color: var(--color-cyan-500);
+  color: #fff;
+  border-color: var(--color-cyan-500);
+}
+.G-shape-note-root {
+  color: var(--color-cyan-500);
+  background-color: #fff;
+}
+.E-shape-note {
+  background-color: var(--color-green-500);
+  color: #fff;
+  border-color: var(--color-green-500);
+}
+.E-shape-note-root {
+  color: var(--color-green-500);
+  background-color: #fff;
+}
+.D-shape-note {
+  background-color: var(--color-yellow-500);
+  color: #fff;
+  border-color: var(--color-yellow-500);
+}
+.D-shape-note-root {
+  color: var(--color-yellow-500);
+  background-color: #fff;
+}

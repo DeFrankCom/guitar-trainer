@@ -70,7 +70,9 @@ export const Fretboard: React.FC<FretboardProps> = ({
               <div className='flex items-center justify-center min-w-[50px] mr-2.5 shrink-0'>
                 <NoteCmp
                   key={0}
-                  color={getChordByNote(guitarString.notes[0])?.color ?? 'none'}
+                  shape={
+                    getChordByNote(guitarString.notes[0])?.chordShape ?? 'none'
+                  }
                   note={{
                     ...guitarString.notes[0],
                     interval:
@@ -93,7 +95,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
                     return (
                       <NoteCmp
                         key={note.fret}
-                        color={chord?.color ?? 'none'}
+                        shape={chord?.chordShape ?? 'none'}
                         note={{
                           ...note,
                           interval: scaleNote?.interval ?? undefined,

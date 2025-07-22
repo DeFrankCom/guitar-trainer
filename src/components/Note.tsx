@@ -16,7 +16,7 @@ const colorMap: Record<string, string> = {
 };
 
 type NoteProps = {
-  color: string;
+  shape: string;
   note: FretboardNote;
   showNoteName: boolean;
   viewOnlyFunction: boolean;
@@ -26,7 +26,7 @@ type NoteProps = {
 };
 
 export const Note: React.FC<NoteProps> = ({
-  color,
+  shape,
   note,
   showNoteName,
   viewOnlyFunction,
@@ -34,7 +34,8 @@ export const Note: React.FC<NoteProps> = ({
   withBorderRight = true,
   isOnLastFret,
 }) => {
-  const colorMapKey = note.interval === '1' ? `${color}First` : color;
+  const colorMapKey =
+    note.interval === '1' ? `${shape}-note-root` : `${shape}-note`;
   return (
     <div
       key={note.fret}
@@ -48,8 +49,7 @@ export const Note: React.FC<NoteProps> = ({
           key={note.fret}
           className={cx(
             'flex items-center justify-center h-[48px] w-[48px] rounded-full border-4 font-bold text-xl shadow-lg transition-all duration-200 z-2',
-            { 'bg-white': !!colorMapKey },
-            colorMap[colorMapKey ?? 'none']
+            colorMapKey ?? 'none'
           )}
         >
           {showNoteName || !viewOnlyFunction ? note.note : note.interval}
