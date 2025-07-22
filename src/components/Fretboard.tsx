@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import type { FretboardData, FretboardNote } from '../types/FretboardNote';
 import { generateFretboardData } from '../utils/fretboardData';
 
@@ -11,13 +11,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
   totalFrets = 12, 
   onNoteClick 
 }) => {
-  const [fretboardData, setFretboardData] = useState<FretboardData | null>(null);
-
-  useEffect(() => {
-    const data = generateFretboardData(totalFrets);
-    console.log(data);
-    setFretboardData(data);
-  }, [totalFrets]);
+  const [fretboardData, setFretboardData] = useState<FretboardData | null>(generateFretboardData(totalFrets));
 
   const handleNoteClick = (note: FretboardNote) => {
     if (onNoteClick) {
