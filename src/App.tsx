@@ -4,17 +4,26 @@ import { Selector } from '@/components/ui/Selector';
 import Switch from '@mui/material/Switch';
 import { generateScale, FULL_CHROMATIC_SCALE, allScales } from './utils/scales';
 import type { ScaleType } from '@/utils/scales';
-import { generateAllPossibleMajorChords } from '@/utils/chords';
+import {
+  generateAllPossibleMajorChords,
+  generateMajorChordStructure,
+} from '@/utils/chords';
 
 function App() {
   const [checked, setChecked] = useState(true);
-  const [viewOnlyFunction, setViewOnlyFunction] = useState(true);
+  const [viewOnlyFunction, setViewOnlyFunction] = useState(false);
   const [selectedRootNote, setSelectedRootNote] = useState('C');
+  const [majorChords] = useState(generateAllPossibleMajorChords());
   const [selectedScaleType, setSelectedScaleType] =
     useState<ScaleType>('major');
   const selectedScale = useMemo(
     () => generateScale(selectedRootNote, selectedScaleType),
     [selectedRootNote, selectedScaleType]
+  );
+  const chordStructure = useMemo(
+    () =>
+      generateMajorChordStructure(`${selectedRootNote} ${selectedScaleType}`),
+    [selectedRootNote, selectedScaleType, majorChords]
   );
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -23,7 +32,7 @@ function App() {
     setViewOnlyFunction(event.target.checked);
   };
 
-  console.log(generateAllPossibleMajorChords());
+  console.log(chordStructure);
 
   return (
     <div className='flex flex-col justify-center gap-4 min-h-screen overflow-x-hidden'>
@@ -42,7 +51,9 @@ function App() {
             labelId='note-selector-label'
             label='Nota raíz'
             defaultValue={selectedRootNote}
-            options={FULL_CHROMATIC_SCALE}
+            options={majorChords.rootChords
+              .map(chordShape => chordShape.chord.split(' ')[0])
+              .sort()}
             onSelectedValue={setSelectedRootNote}
           />
           <Selector
