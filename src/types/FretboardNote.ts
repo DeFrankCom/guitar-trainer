@@ -15,4 +15,4 @@ export type GuitarString = {
 export type FretboardData = {
   strings: GuitarString[];
   totalFrets: number;
-}; 
+};

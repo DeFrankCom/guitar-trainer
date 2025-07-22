@@ -1,4 +1,8 @@
-import type { FretboardData, GuitarString, FretboardNote } from '../types/FretboardNote';
+import type {
+  FretboardData,
+  GuitarString,
+  FretboardNote,
+} from '../types/FretboardNote';
 
 // Definir las notas musicales en orden
 const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
@@ -14,9 +18,13 @@ function getNoteAtFret(openNote: string, fret: number): string {
 }
 
 // Función para generar todas las notas de una cuerda
-function generateStringNotes(stringNumber: number, openNote: string, totalFrets: number): FretboardNote[] {
+function generateStringNotes(
+  stringNumber: number,
+  openNote: string,
+  totalFrets: number
+): FretboardNote[] {
   const stringNotes: FretboardNote[] = [];
-  
+
   for (let fret = 1; fret <= totalFrets; fret++) {
     const note = getNoteAtFret(openNote, fret);
     stringNotes.push({
@@ -24,30 +32,30 @@ function generateStringNotes(stringNumber: number, openNote: string, totalFrets:
       string: stringNumber,
       fret,
       isHighlighted: false,
-      isSelected: false
+      isSelected: false,
     });
   }
-  
+
   return stringNotes;
 }
 
 // Función para generar toda la estructura del diapasón
 export function generateFretboardData(totalFrets: number = 12): FretboardData {
   const strings: GuitarString[] = [];
-  
+
   for (let i = 0; i < 6; i++) {
     const stringNumber = i + 1;
     const openNote = openStringNotes[i];
     const notes = generateStringNotes(stringNumber, openNote, totalFrets);
-    
+
     strings.push({
       stringNumber,
       openNote,
-      notes
+      notes,
     });
   }
   return {
     strings,
-    totalFrets
+    totalFrets,
   };
-} 
+}

@@ -9,20 +9,42 @@ type ScaleNote = {
 
 // Chromatic scale with all 12 notes
 const CHROMATIC_SCALE: Note[] = [
-  'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'
+  'C',
+  'C#',
+  'D',
+  'D#',
+  'E',
+  'F',
+  'F#',
+  'G',
+  'G#',
+  'A',
+  'A#',
+  'B',
 ];
 
 // Alternative representation with flats
 const CHROMATIC_SCALE_FLATS: Note[] = [
-  'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'
+  'C',
+  'Db',
+  'D',
+  'Eb',
+  'E',
+  'F',
+  'Gb',
+  'G',
+  'Ab',
+  'A',
+  'Bb',
+  'B',
 ];
 
 // Scale patterns in semitones
 const SCALE_PATTERNS = {
-  major: [2, 2, 1, 2, 2, 2, 1],          // W-W-H-W-W-W-H
-  minor: [2, 1, 2, 2, 1, 2, 2],          // W-H-W-W-H-W-W
-  majorPentatonic: [2, 2, 3, 2, 3],      // W-W-WH-W-WH (5 notes)
-  minorPentatonic: [3, 2, 2, 3, 2]       // WH-W-W-WH-W (5 notes)
+  major: [2, 2, 1, 2, 2, 2, 1], // W-W-H-W-W-W-H
+  minor: [2, 1, 2, 2, 1, 2, 2], // W-H-W-W-H-W-W
+  majorPentatonic: [2, 2, 3, 2, 3], // W-W-WH-W-WH (5 notes)
+  minorPentatonic: [3, 2, 2, 3, 2], // WH-W-W-WH-W (5 notes)
 } as const;
 
 // Interval names for each scale type
@@ -30,7 +52,7 @@ const INTERVAL_NAMES = {
   major: ['1', '2', '3', '4', '5', '6', '7', '8'],
   minor: ['1', '2', '♭3', '4', '5', '♭6', '♭7', '8'],
   majorPentatonic: ['1', '2', '3', '5', '6', '8'],
-  minorPentatonic: ['1', '♭3', '4', '5', '♭7', '8']
+  minorPentatonic: ['1', '♭3', '4', '5', '♭7', '8'],
 } as const;
 
 /**
@@ -40,39 +62,43 @@ const INTERVAL_NAMES = {
  * @param useFlats - Whether to use flats instead of sharps for accidentals
  * @returns Array of objects containing note and interval information
  */
-export function generateScale(root: Note, scaleType: ScaleType, useFlats: boolean = false): ScaleNote[] {
+export function generateScale(
+  root: Note,
+  scaleType: ScaleType,
+  useFlats: boolean = false
+): ScaleNote[] {
   const chromaticScale = useFlats ? CHROMATIC_SCALE_FLATS : CHROMATIC_SCALE;
   const pattern = SCALE_PATTERNS[scaleType];
   const intervalNames = INTERVAL_NAMES[scaleType];
-  
+
   // Find the starting position of the root note
   let rootIndex = chromaticScale.indexOf(root);
-  
+
   // If not found with current chromatic scale, try the other one
   if (rootIndex === -1) {
     const alternateScale = useFlats ? CHROMATIC_SCALE : CHROMATIC_SCALE_FLATS;
     rootIndex = alternateScale.indexOf(root);
-    
+
     if (rootIndex === -1) {
       throw new Error(`Invalid root note: ${root}`);
     }
-    
+
     // Convert the index to work with our chosen chromatic scale
     // This handles cases where user inputs 'C#' but we want flats, etc.
   }
-  
+
   const scale: ScaleNote[] = [{ note: root, interval: intervalNames[0] }];
   let currentIndex = rootIndex;
-  
+
   // Generate the scale using the pattern
   for (let i = 0; i < pattern.length; i++) {
     currentIndex = (currentIndex + pattern[i]) % 12;
-    scale.push({ 
-      note: chromaticScale[currentIndex], 
-      interval: intervalNames[i + 1] 
+    scale.push({
+      note: chromaticScale[currentIndex],
+      interval: intervalNames[i + 1],
     });
   }
-  
+
   return scale;
 }
 
@@ -85,15 +111,15 @@ export function generateScale(root: Note, scaleType: ScaleType, useFlats: boolea
 export function getRelativeScale(root: Note, scaleType: ScaleType): Note {
   const chromaticScale = CHROMATIC_SCALE;
   let rootIndex = chromaticScale.indexOf(root);
-  
+
   if (rootIndex === -1) {
     rootIndex = CHROMATIC_SCALE_FLATS.indexOf(root);
   }
-  
+
   if (rootIndex === -1) {
     throw new Error(`Invalid root note: ${root}`);
   }
-  
+
   if (scaleType === 'major') {
     // Relative minor is 9 semitones up (or 3 semitones down)
     const relativeIndex = (rootIndex + 9) % 12;
@@ -116,6 +142,6 @@ export function generateAllScales(root: Note, useFlats: boolean = false) {
     major: generateScale(root, 'major', useFlats),
     minor: generateScale(root, 'minor', useFlats),
     majorPentatonic: generateScale(root, 'majorPentatonic', useFlats),
-    minorPentatonic: generateScale(root, 'minorPentatonic', useFlats)
+    minorPentatonic: generateScale(root, 'minorPentatonic', useFlats),
   };
 }
