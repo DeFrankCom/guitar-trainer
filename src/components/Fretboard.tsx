@@ -5,17 +5,14 @@ import { cagedPositions } from '@/utils/cagedPositions';
 import { Note } from '@/components/Note';
 // Definición de las posiciones, etiquetas y colores según la imagen
 
-const colorMap: Record<string, string> = {
-  red: 'bg-red-500 border-red-600 text-white',
-  blue: 'bg-blue-500 border-blue-600 text-white',
-  cyan: 'bg-cyan-400 border-cyan-600 text-white',
-  green: 'bg-green-500 border-green-600 text-white',
-  yellow: 'bg-yellow-400 border-yellow-500 text-yellow-900',
-};
-
 const NUM_FRETS = 17;
 
-export const Fretboard: React.FC = () => {
+type FretboardProps = {
+  showNotes: boolean;
+  viewOnlyFunction: boolean;
+}
+
+export const Fretboard: React.FC<FretboardProps> = ({ showNotes: showNoteName, viewOnlyFunction}) => {
   const [fretboardData] = useState<FretboardData>(() => generateFretboardData(NUM_FRETS));
 
   return (
@@ -37,12 +34,12 @@ export const Fretboard: React.FC = () => {
         {fretboardData.strings.map((guitarString: FretboardData['strings'][number]) => (
           <div key={guitarString.stringNumber} className="flex mb-0.5 items-center w-full">
             <div className="bg-guitar-dark text-gray-100 py-3 px-2 text-center font-bold text-sm rounded min-w-[50px] mr-2.5 flex-shrink-0 flex items-center justify-center">
-              {/* Puedes mostrar la nota al aire si lo deseas */}
+              {guitarString.openNote}
             </div>
             <div className="flex flex-1 gap-0.5 w-full">
               {guitarString.notes.map((note: FretboardNote) => {
                 const pos = cagedPositions.find((p: any) => p.string === note.string && p.fret === note.fret);
-                return <Note key={note.fret} pos={pos} note={note} />;
+                return <Note key={note.fret} pos={pos} note={note} showNoteName={showNoteName} viewOnlyFunction={viewOnlyFunction} />;
               })}
             </div>
           </div>

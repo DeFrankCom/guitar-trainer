@@ -1,6 +1,18 @@
+import { useState } from "react";
 import { Fretboard } from '@/components/Fretboard';
+import Switch from '@mui/material/Switch';
+
 
 function App() {
+  const [checked, setChecked] = useState(true);
+  const [viewOnlyFunction, setViewOnlyFunction] = useState(true);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+  const handleVisibility= (event: React.ChangeEvent<HTMLInputElement>) => {
+    setViewOnlyFunction(event.target.checked);
+  };
+
   return (
     <div className="flex flex-col justify-center gap-[3rem] min-h-screen bg-gradient-to-br from-slate-800 to-slate-700 text-white overflow-x-hidden">
       <header className="w-full px-5 py-5 bg-black/20 backdrop-blur-md">
@@ -11,9 +23,26 @@ function App() {
           Aprende las notas del diapasón de la guitarra
         </p>
       </header>
-      
+      <div>
+        <div>
+          <label>Notas</label>
+          <Switch
+            checked={checked}
+            onChange={handleChange}
+          />
+          <label>Función</label>
+        </div>
+        <div>
+          <label>Todas</label>
+          <Switch
+            checked={viewOnlyFunction}
+            onChange={handleVisibility}
+          />
+          <label>Función</label>
+        </div>
+      </div>
       <main className="flex flex-col items-center gap-5 p-5 w-full">
-        <Fretboard />
+        <Fretboard showNotes={!checked} viewOnlyFunction={viewOnlyFunction} />
       </main>
     </div>
   )

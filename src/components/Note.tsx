@@ -7,22 +7,25 @@ const colorMap: Record<string, string> = {
     cyan: 'bg-cyan-400 border-cyan-600 text-white',
     green: 'bg-green-500 border-green-600 text-white',
     yellow: 'bg-yellow-400 border-yellow-500 text-yellow-900',
+    none: '',
   };
 
 type NoteProps = {
   pos: ShapeFretLocation;
-  note: FretboardNote
+  note: FretboardNote;
+  showNoteName: boolean;
+  viewOnlyFunction: boolean;
 };
 
-export const Note: React.FC<NoteProps> = ({pos, note}) => {
+export const Note: React.FC<NoteProps> = ({pos, note, showNoteName, viewOnlyFunction}) => {
   return (
     <div key={note.fret} className="flex items-center justify-center min-h-[40px] flex-1">
-      {pos && (
+      {(pos || viewOnlyFunction) && (
         <div
         key={note.fret}
-        className={`flex items-center justify-center h-full min-w-[40px] rounded-full border-2 font-bold text-lg shadow-md ${colorMap[pos.color]}`}
+        className={`flex items-center justify-center h-full min-w-[40px] rounded-full border-2 font-bold text-lg shadow-md ${colorMap[pos?.color ?? "none"]}`}
       >
-        {pos.label}
+        {(showNoteName || ! viewOnlyFunction) ? note.note : pos?.label}
       </div>
       )}
     </div>
