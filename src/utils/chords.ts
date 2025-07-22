@@ -184,7 +184,7 @@ export const generateMajorChordStructure = (startingChordName: string) => {
   while (chordsAdded < 5) {
     const index = (posIndex + chordsAdded) % 5;
     const nextPosition = allMajorPositions[index];
-    if (nextPosition.name === 'C-shape') {
+    if (nextPosition.name === 'C-shape' && chordsAdded) {
       lowestFret -= 1;
     }
     const positionNotes = placeShape(nextPosition, lowestFret);
