@@ -46,7 +46,7 @@ export function generateFretboardData(totalFrets: number = 12): FretboardData {
       notes
     });
   }
-  
+  console.log({strings});
   return {
     strings,
     totalFrets
