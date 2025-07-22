@@ -20,7 +20,7 @@ export const Fretboard: React.FC<FretboardProps> = ({ showNotes: showNoteName, v
       <div className="bg-guitar-brown border-3 border-guitar-dark rounded-lg p-5 shadow-2xl w-full max-w-full overflow-x-auto">
         {/* Encabezado con números de trastes */}
         <div className="flex mb-2.5 w-full">
-          <div className="bg-transparent min-w-[50px] mr-2.5 flex-shrink-0"></div>
+          <div className="bg-transparent min-w-[50px] mr-2.5 shrink-0"></div>
           {Array.from({ length: NUM_FRETS }, (_, i) => (
             <div 
               key={i} 
@@ -33,7 +33,7 @@ export const Fretboard: React.FC<FretboardProps> = ({ showNotes: showNoteName, v
         {/* Cuerdas y notas */}
         {fretboardData.strings.map((guitarString: FretboardData['strings'][number]) => (
           <div key={guitarString.stringNumber} className="flex mb-0.5 items-center w-full">
-            <div className="bg-guitar-dark text-gray-100 py-3 px-2 text-center font-bold text-sm rounded min-w-[50px] mr-2.5 flex-shrink-0 flex items-center justify-center">
+            <div className="bg-guitar-dark text-gray-100 py-3 px-2 text-center font-bold text-sm rounded min-w-[50px] mr-2.5 shrink-0 flex items-center justify-center">
               {guitarString.openNote}
             </div>
             <div className="flex flex-1 gap-0.5 w-full">
