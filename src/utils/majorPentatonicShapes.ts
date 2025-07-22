@@ -84,6 +84,7 @@ export const D_Major_Pentatonic_Shape: FretboardShape = {
     { string: 1, fretOffset: 2, interval: Interval.M3 },
     { string: 2, fretOffset: 0, interval: Interval.M6 },
     { string: 2, fretOffset: 3, interval: Interval.R },
+    { string: 3, fretOffset: -1, interval: Interval.P5 },
     { string: 3, fretOffset: 2, interval: Interval.P5 },
     { string: 4, fretOffset: 0, interval: Interval.R },
     { string: 4, fretOffset: 2, interval: Interval.M2 },
