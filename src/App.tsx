@@ -32,8 +32,6 @@ function App() {
     setViewOnlyFunction(event.target.checked);
   };
 
-  console.log(chordStructure);
-
   return (
     <div className='flex flex-col justify-center gap-4 min-h-screen overflow-x-hidden'>
       <header className='w-full px-5 py-5 bg-black/20 backdrop-blur-md'>
@@ -81,6 +79,7 @@ function App() {
           showNotes={!checked}
           viewOnlyFunction={viewOnlyFunction}
           selectedScale={selectedScale}
+          chordStructure={chordStructure}
         />
       </main>
     </div>

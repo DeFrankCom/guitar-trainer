@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import type {
   ChordShape,
+  ChordStructure,
   FretboardNote,
   FretboardShape,
 } from '@/types/FretboardShape';
@@ -175,7 +176,7 @@ export const generateMajorChordStructure = (startingChordName: string) => {
     chordShape => chordShape.chord === startingChordName
   )!;
   let lowestFret = getLowestFret(chord.notes);
-  const allChords = [];
+  const allChords: Array<ChordStructure> = [];
   let chordsAdded = 0;
   let posIndex = allMajorPositions.findIndex(
     pos => pos.name === chord.chordShape

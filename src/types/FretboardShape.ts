@@ -25,3 +25,7 @@ export interface ChordShape {
   chord: string;
   chordShape: string;
 }
+
+export interface ChordStructure extends ChordShape {
+  color: string;
+}

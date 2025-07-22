@@ -3,11 +3,13 @@ import type { FretboardData, FretboardNote } from '@/types/FretboardNote';
 import { generateFretboardData } from '@/utils/fretboardData';
 import { Note as NoteCmp } from '@/components/Note';
 import type { ScaleNote } from '@/utils/scales';
+import type { ChordStructure } from '@/types/FretboardShape';
 
-const NUM_FRETS = 17;
+const NUM_FRETS = 14;
 
 type FretboardProps = {
   selectedScale: ScaleNote[];
+  chordStructure: ChordStructure[];
   showNotes: boolean;
   viewOnlyFunction: boolean;
 };
@@ -16,10 +18,27 @@ export const Fretboard: React.FC<FretboardProps> = ({
   showNotes: showNoteName,
   viewOnlyFunction,
   selectedScale,
+  chordStructure = [],
 }) => {
   const [fretboardData] = useState<FretboardData>(() =>
     generateFretboardData(NUM_FRETS)
   );
+
+  const getChordByNote = (note: FretboardNote) => {
+    let selectedChord;
+
+    console.log(chordStructure);
+    for (const chord of chordStructure) {
+      const correspondingNote = chord.notes.find(
+        n => n.fret === note.fret && n.string === note.string
+      );
+      if (correspondingNote) {
+        selectedChord = chord;
+        break;
+      }
+    }
+    return selectedChord;
+  };
 
   return (
     <div className='flex justify-center items-center w-full'>
@@ -51,10 +70,11 @@ export const Fretboard: React.FC<FretboardProps> = ({
                   const scaleNote = selectedScale.find(
                     scaleNote => scaleNote.note === note.note
                   );
+                  const chord = getChordByNote(note);
                   return (
                     <NoteCmp
                       key={note.fret}
-                      color={'none'}
+                      color={chord?.color ?? 'none'}
                       note={{
                         ...note,
                         interval: scaleNote?.interval ?? undefined,
