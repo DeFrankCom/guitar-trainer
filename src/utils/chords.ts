@@ -1,5 +1,9 @@
 import _ from 'lodash';
-import type { FretboardNote, FretboardShape } from '@/types/FretboardShape';
+import type {
+  ChordShape,
+  FretboardNote,
+  FretboardShape,
+} from '@/types/FretboardShape';
 import { Interval } from '@/types/Interval';
 import { allMajorPositions } from './majorShapes';
 
@@ -128,15 +132,9 @@ export const genDMajorNotes = () => {
 };
 
 export const generateAllPossibleMajorChords = () => {
-  const getLowestChord = (
-    allChords: Array<{
-      notes: FretboardNote[];
-      chord: string;
-      chordShape: string;
-    }>
-  ) => {
+  const getLowestChord = (allChords: Array<ChordShape>): ChordShape => {
     let lowestRootPos = Infinity;
-    let selectedChord = {};
+    let selectedChord: ChordShape = { notes: [], chordShape: '', chord: '' };
     allChords.forEach(c => {
       const rootPos = getLowestFret(c.notes, Interval.R);
       if (rootPos < lowestRootPos) {
@@ -159,7 +157,7 @@ export const generateAllPossibleMajorChords = () => {
     }
   }
   const groupedChords = _.groupBy(allChords, 'chord');
-  const rootChords = [];
+  const rootChords: Array<ChordShape> = [];
   Object.keys(groupedChords)
     .map(chordName => groupedChords[chordName])
     .map(allChords => {
@@ -169,4 +167,30 @@ export const generateAllPossibleMajorChords = () => {
     allChords: groupedChords,
     rootChords,
   };
+};
+
+export const generateMajorChordStructure = (startingChordName: string) => {
+  const { rootChords } = generateAllPossibleMajorChords();
+  const chord = rootChords.find(
+    chordShape => chordShape.chord === startingChordName
+  )!;
+  let lowestFret = getLowestFret(chord.notes);
+  const allChords = [];
+  let chordsAdded = 0;
+  let posIndex = allMajorPositions.findIndex(
+    pos => pos.name === chord.chordShape
+  );
+  while (chordsAdded < 5) {
+    const index = (posIndex + chordsAdded) % 5;
+    const positionNotes = placeShape(allMajorPositions[index], lowestFret);
+    lowestFret = getHighestFret(positionNotes, Interval.R);
+    allChords.push({
+      notes: positionNotes,
+      chord: getChordNameWithRoot(positionNotes),
+      chordShape: allMajorPositions[index].name,
+      color: allMajorPositions[index].color,
+    });
+    chordsAdded += 1;
+  }
+  return allChords;
 };

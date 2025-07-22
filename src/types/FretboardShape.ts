@@ -19,3 +19,9 @@ export interface FretboardNote {
   fret: number; // absolute fret on the guitar
   interval: Interval; // what chord‑/scale‑degree it is
 }
+
+export interface ChordShape {
+  notes: FretboardNote[];
+  chord: string;
+  chordShape: string;
+}
