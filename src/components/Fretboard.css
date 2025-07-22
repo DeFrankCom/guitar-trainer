@@ -5,6 +5,8 @@
   padding: 20px;
   background: linear-gradient(135deg, #2c3e50, #34495e);
   min-height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
 }
 
 .fretboard {
@@ -13,13 +15,16 @@
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  max-width: 90vw;
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  box-sizing: border-box;
 }
 
 .fret-header {
   display: flex;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .fret-number {
@@ -33,18 +38,21 @@
   min-width: 40px;
   margin-right: 2px;
   flex: 1;
+  box-sizing: border-box;
 }
 
 .fret-header .string-label {
   background: transparent;
   min-width: 60px;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .string-row {
   display: flex;
   margin-bottom: 2px;
   align-items: center;
+  width: 100%;
 }
 
 .string-label {
@@ -61,12 +69,14 @@
   min-width: 50px;
   margin-right: 10px;
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .fret-notes-container {
   display: flex;
   flex: 1;
   gap: 2px;
+  width: 100%;
 }
 
 .fret-note {
@@ -86,6 +96,7 @@
   transition: all 0.2s ease;
   position: relative;
   flex: 1;
+  box-sizing: border-box;
 }
 
 .fret-note:hover {
@@ -116,6 +127,10 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .fretboard-container {
+    padding: 10px;
+  }
+  
   .fretboard {
     padding: 10px;
   }

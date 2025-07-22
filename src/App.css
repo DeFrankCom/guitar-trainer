@@ -1,14 +1,19 @@
 .App {
   text-align: center;
   min-height: 100vh;
+  width: 100vw;
   background: linear-gradient(135deg, #2c3e50, #34495e);
   color: white;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .app-header {
   padding: 20px;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .app-header h1 {
@@ -30,6 +35,8 @@
   align-items: center;
   gap: 20px;
   padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .note-info {
@@ -40,6 +47,9 @@
   margin-top: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
 }
 
 .note-info h3 {
@@ -66,6 +76,10 @@
   
   .app-header p {
     font-size: 1rem;
+  }
+  
+  .app-main {
+    padding: 10px;
   }
   
   .note-info {
