@@ -51,15 +51,20 @@ export const Fretboard: React.FC<FretboardProps> = ({
               </div>
               <div className='flex flex-1 gap-0.5 w-full'>
                 {guitarString.notes.map((note: FretboardNote) => {
-                  const pos = cagedPositions.find(
-                    (p: any) => p.string === note.string && p.fret === note.fret
+                  const color = cagedPositions.find(
+                    (p: any) => p.fret === note.fret
+                  )?.color;
+                  const scaleNote = selectedScale.find(
+                    scaleNote => scaleNote.note === note.note
                   );
-                  const scaleNote = selectedScale.find(scaleNote => scaleNote.note === note.note);
                   return (
                     <NoteCmp
                       key={note.fret}
-                      pos={pos}
-                      note={{...note, interval: scaleNote?.interval ?? undefined }}
+                      color={color && !!scaleNote ? color : 'none'}
+                      note={{
+                        ...note,
+                        interval: scaleNote?.interval ?? undefined,
+                      }}
                       showNoteName={showNoteName}
                       viewOnlyFunction={viewOnlyFunction}
                       noteBelongsToScale={!!scaleNote}

@@ -33,6 +33,7 @@ function generateStringNotes(
       fret,
       isHighlighted: false,
       isSelected: false,
+      interval: '',
     });
   }
 

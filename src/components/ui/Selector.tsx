@@ -33,7 +33,7 @@ export const Selector: React.FC<SelectProps> = ({
   }, [value]);
 
   return (
-    <FormControl>
+    <FormControl sx={{ m: 1, minWidth: 120 }}>
       <InputLabel id={id} sx={{ color: 'white' }}>
         {label}
       </InputLabel>

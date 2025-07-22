@@ -1,17 +1,23 @@
 import type { FretboardNote } from '@/types/FretboardNote';
 import type { ShapeFretLocation } from '@/types/ShapeFretLocation';
+import cx from 'classnames';
 
 const colorMap: Record<string, string> = {
-  red: 'bg-red-500 border-red-600 text-white',
-  blue: 'bg-blue-500 border-blue-600 text-white',
-  cyan: 'bg-cyan-400 border-cyan-600 text-white',
-  green: 'bg-green-500 border-green-600 text-white',
-  yellow: 'bg-yellow-400 border-yellow-500 text-yellow-900',
+  red: 'border-red-600 text-white',
+  redFirst: 'bg-red-500 border-red-600 text-white',
+  blue: 'border-blue-600 text-white',
+  blueFirst: 'bg-blue-500 border-blue-600 text-white',
+  cyan: 'border-cyan-600 text-white',
+  cyanFirst: 'bg-cyan-400 border-cyan-600 text-white',
+  green: 'border-green-600 text-white',
+  greenFirst: 'bg-green-500 border-green-600 text-white',
+  yellow: 'border-yellow-500 text-white',
+  yellowFirst: 'bg-yellow-400 border-yellow-500 text-black',
   none: '',
 };
 
 type NoteProps = {
-  pos: ShapeFretLocation | undefined;
+  color: string;
   note: FretboardNote;
   showNoteName: boolean;
   viewOnlyFunction: boolean;
@@ -19,12 +25,13 @@ type NoteProps = {
 };
 
 export const Note: React.FC<NoteProps> = ({
-  pos,
+  color,
   note,
   showNoteName,
   viewOnlyFunction,
   noteBelongsToScale,
 }) => {
+  const colorMapKey = note.interval === '1' ? `${color}First` : color;
   return (
     <div
       key={note.fret}
@@ -33,7 +40,10 @@ export const Note: React.FC<NoteProps> = ({
       {(noteBelongsToScale || viewOnlyFunction) && (
         <div
           key={note.fret}
-          className={`flex items-center justify-center h-full min-w-[40px] rounded-full border-2 font-bold text-lg shadow-md ${colorMap[pos?.color ?? 'none']}`}
+          className={cx(
+            'flex items-center justify-center h-full min-w-[40px] rounded-full border-2 font-bold text-lg shadow-md',
+            colorMap[colorMapKey ?? 'none']
+          )}
         >
           {showNoteName || !viewOnlyFunction ? note.note : note.interval}
         </div>
